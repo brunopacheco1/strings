@@ -22,6 +22,8 @@ About difficulties, the most difficult one was the service that returns the long
 
 About computational and space complexity, I'll explain the first idea, the longest chain of all strings uploaded:
 
-To preper the chain index, the computational complexity is O(W*N), which W is the number of strings in a Set of Strings and N is the number of elements in the Word Index. The Space complexity of this index is O(N*(N!/(N-1)!) because the worst result is a tree of N elements combined with N-1 diferent elements.
+To preper the chain index, the computational complexity is O(W\*N), which W is the number of strings in a Set of Strings and N is the number of elements in the Word Index. The Space complexity of this index is O(N\*N!) because the worst result is a tree of N elements combined with N-1 diferent elements.
 
 To search the longest chain in a graph, or its diameter, I've faced some problems. To simplify the project, the software generates all path options and, after that, it choose the longest one according to the number of its vertices. I know that it is the worst option, but I didn't found algorithms on Internet that could help me on that. Actually, I've made some researches about directed graphs and I've found the Directed Acyclic Graph, but I need time to understand it.
+
+ERRATA: I've made some mistakes about space complexity. I've put O(N\*(N!/(N-1)!), but the correct is O(N\*(N!/(N-N)!), or simply  O(N\*N!). For each N element, the worst case is the combination of all N elements, without repetion and the order of the elements matters.
