@@ -1,6 +1,8 @@
 /target
 /build
-.settings
-.project
-.classpath
-.tern-project
+/bin
+/.git
+/.metadata
+/.settings
+/.classpath
+/.project
