@@ -1,0 +1,32 @@
+language: java
+dist: trusty
+sudo: required
+jdk:
+  - oraclejdk8
+services:
+  - docker
+addons:
+  sonarcloud:
+    organization: $SONAR_ORGANIZATION
+    token:
+      secure: $SONAR_TOKEN
+before_install:
+  - docker pull jboss/wildfly
+script:
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then
+    mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar;
+    else
+    mvn clean package;
+    fi
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then
+    docker build -t "$DOCKER_USERNAME/strings" .;
+    else
+    docker build -t "$DOCKER_USERNAME/strings:$TRAVIS_BRANCH" .;
+    fi
+after_success:
+  - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD";
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then
+    docker push "$DOCKER_USERNAME/strings:latest";
+    else
+    docker push "$DOCKER_USERNAME/strings:$TRAVIS_BRANCH";
+    fi
